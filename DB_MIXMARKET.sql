@@ -15,6 +15,7 @@ CREATE TABLE BOLETA (
     CONSTRAINT BOLETA_pk PRIMARY KEY (ID)
 ) COMMENT 'datos de la boleta';
 
+
 -- Table: CAJERO
 CREATE TABLE CAJERO (
     ID int  NOT NULL COMMENT 'identificador del cajero',
@@ -34,7 +35,7 @@ CREATE TABLE CLIENTE (
 -- Table: DOCUMENTO_VENTA
 CREATE TABLE DOCUMENTO_VENTA (
     ID int  NOT NULL COMMENT 'identificador del documento de venta',
-    AMOUNT double(45,45)  NOT NULL COMMENT 'monto del documento de venta',
+    AMOUNT double(10,2)  NOT NULL COMMENT 'monto del documento de venta',
     TIME timestamp  NOT NULL COMMENT 'fecha de emisión',
     CONSTRAINT DOCUMENTO_VENTA_pk PRIMARY KEY (ID)
 ) COMMENT 'datos principales del documento';
@@ -46,6 +47,7 @@ CREATE TABLE FACTURA (
     DOCUMENTO_VENTA_ID int  NOT NULL,
     CONSTRAINT FACTURA_pk PRIMARY KEY (ID)
 ) COMMENT 'datos de la factura';
+
 
 -- Table: PEDIDO
 CREATE TABLE PEDIDO (
@@ -62,7 +64,7 @@ CREATE TABLE PEDIDO (
 CREATE TABLE PRODUCTO (
     ID int  NOT NULL COMMENT 'identificador del producto',
     NAME_PRODUC varchar(45)  NOT NULL COMMENT 'nombre del producto',
-    PRICE double(45,45)  NOT NULL COMMENT 'precio del producto',
+    PRICE double(10,2)  NOT NULL COMMENT 'precio del producto',
     AMOUNT int  NOT NULL COMMENT 'cantidad del producto',
     CONSTRAINT PRODUCTO_pk PRIMARY KEY (ID)
 ) COMMENT 'datos de los productos';
@@ -133,4 +135,43 @@ ALTER TABLE VENTA ADD CONSTRAINT VENTA_PRODUCTO FOREIGN KEY VENTA_PRODUCTO (PROD
     REFERENCES PRODUCTO (ID) ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- End of file.
-
+insert into CLIENTE (ID, NAME_CUSTOMER, LAST_NAME)
+values ('1', 'Cristopher', 'sotelo'),
+('2', '	Ronald', 'Espinoza');
+select*from CLIENTE;
+insert into CAJERO (ID, NAME_CASHIER, NUMBER_BOX)
+VALUES('01', 'Paola', '3'),
+      ('02', 'Jorge', '2');
+select*from CAJERO;
+insert into PRODUCTO (ID, NAME_PRODUC, PRICE, AMOUNT)
+VALUES('001', 'fideo', 5.4, '20'),
+      ('002', 'leche', 4.2, '15');
+select*from PRODUCTO;
+insert into TRABAJADOR (ID, NAME, LAST_NAME)
+values ('0001', 'Rosa', 'Linares'),
+('0002', 'Pedro', 'Yactayo');
+select*from TRABAJADOR;
+insert into PROVEEDOR (ID, RUC_E, NAME_COMPANY)
+values ('00001', '2015678954', 'ARCOR'),
+('00002', '	2046379345', 'Nestle');
+select*from PROVEEDOR;
+insert into PEDIDO (ID, AMOUNT, TIME, TRABAJADOR_ID, PROVEEDOR_ID, PRODUCTO_ID)
+values ('0001', '22', '2024-11-08 10:00:00', '0001', '00001',0002),
+       ('0002', '13','2024-11-08 11:35:06', '0002', '00002',0001);
+select*from PEDIDO;
+insert into DOCUMENTO_VENTA (ID, AMOUNT, TIME)
+values ('01', '11', '2024-11-07 09:12:36'),
+       ('02', '8','2024-11-07 10:34:29');
+select*from DOCUMENTO_VENTA;
+insert into VENTA (ID, AMOUNT_PRODUC, TIME, CLIENTE_ID, CAJERO_ID, PRODUCTO_ID, DOCUMENTO_VENTA_ID)
+values ('01', '2', '2024-11-07 09:16:06', '2', '01', '002', '02'),
+       ('02', '3','2024-11-07 10:40:19', '1', '02', '001', '01');
+select*from VENTA;
+insert into BOLETA (ID, NUMBER_TICKET, DOCUMENTO_VENTA_ID)
+values ('001', '2', '02'),
+       ('002', '3', '01');
+select*from BOLETA;
+insert into FACTURA (ID, SERIE, DOCUMENTO_VENTA_ID)
+values ('01', '2468', '02'),
+       ('02', '3742', '01');
+select*from FACTURA;
