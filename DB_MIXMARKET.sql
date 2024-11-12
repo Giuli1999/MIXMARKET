@@ -9,7 +9,7 @@ USE MIXMARKET;
 -- tables
 -- Table: BOLETA
 CREATE TABLE BOLETA (
-    ID int  NOT NULL COMMENT 'identificador de la boleta',
+    ID int  NOT NULL auto_increment COMMENT 'identificador de la boleta',
     NUMBER_TICKET int  NOT NULL COMMENT 'numero de la boleta',
     DOCUMENTO_VENTA_ID int  NOT NULL,
     CONSTRAINT BOLETA_pk PRIMARY KEY (ID)
@@ -18,7 +18,7 @@ CREATE TABLE BOLETA (
 
 -- Table: CAJERO
 CREATE TABLE CAJERO (
-    ID int  NOT NULL COMMENT 'identificador del cajero',
+    ID int  NOT NULL auto_increment COMMENT 'identificador del cajero',
     NAME_CASHIER varchar(45)  NOT NULL COMMENT 'nombre del cajero',
     NUMBER_BOX int  NOT NULL COMMENT 'numero de caja',
     CONSTRAINT CAJERO_pk PRIMARY KEY (ID)
@@ -26,7 +26,7 @@ CREATE TABLE CAJERO (
 
 -- Table: CLIENTE
 CREATE TABLE CLIENTE (
-    ID int  NOT NULL COMMENT 'identificador del cliente',
+    ID int  NOT NULL auto_increment COMMENT 'identificador del cliente',
     NAME_CUSTOMER varchar(45)  NOT NULL COMMENT 'nombre del cliente',
     LAST_NAME varchar(45)  NOT NULL COMMENT 'apellido del cliente',
     CONSTRAINT CLIENTE_pk PRIMARY KEY (ID)
@@ -34,7 +34,7 @@ CREATE TABLE CLIENTE (
 
 -- Table: DOCUMENTO_VENTA
 CREATE TABLE DOCUMENTO_VENTA (
-    ID int  NOT NULL COMMENT 'identificador del documento de venta',
+    ID int  NOT NULL auto_increment COMMENT 'identificador del documento de venta',
     AMOUNT double(10,2)  NOT NULL COMMENT 'monto del documento de venta',
     TIME timestamp  NOT NULL COMMENT 'fecha de emisión',
     CONSTRAINT DOCUMENTO_VENTA_pk PRIMARY KEY (ID)
@@ -42,7 +42,7 @@ CREATE TABLE DOCUMENTO_VENTA (
 
 -- Table: FACTURA
 CREATE TABLE FACTURA (
-    ID int  NOT NULL COMMENT 'identificador de la factura',
+    ID int  NOT NULL auto_increment COMMENT 'identificador de la factura',
     SERIE int  NOT NULL COMMENT 'serie de la factura',
     DOCUMENTO_VENTA_ID int  NOT NULL,
     CONSTRAINT FACTURA_pk PRIMARY KEY (ID)
@@ -51,7 +51,7 @@ CREATE TABLE FACTURA (
 
 -- Table: PEDIDO
 CREATE TABLE PEDIDO (
-    ID int  NOT NULL COMMENT 'Identificador del pedido',
+    ID int  NOT NULL auto_increment COMMENT 'Identificador del pedido',
     AMOUNT int  NOT NULL COMMENT 'cantidad ',
     TIME timestamp  NOT NULL,
     TRABAJADOR_ID int  NOT NULL,
@@ -62,7 +62,7 @@ CREATE TABLE PEDIDO (
 
 -- Table: PRODUCTO
 CREATE TABLE PRODUCTO (
-    ID int  NOT NULL COMMENT 'identificador del producto',
+    ID int  NOT NULL auto_increment COMMENT 'identificador del producto',
     NAME_PRODUC varchar(45)  NOT NULL COMMENT 'nombre del producto',
     PRICE double(10,2)  NOT NULL COMMENT 'precio del producto',
     AMOUNT int  NOT NULL COMMENT 'cantidad del producto',
@@ -71,7 +71,7 @@ CREATE TABLE PRODUCTO (
 
 -- Table: PROVEEDOR
 CREATE TABLE PROVEEDOR (
-    ID int  NOT NULL COMMENT 'identificador del proveedor',
+    ID int  NOT NULL auto_increment COMMENT 'identificador del proveedor',
     RUC_E int  NOT NULL COMMENT 'RUC del proveedor',
     NAME_COMPANY varchar(45)  NOT NULL COMMENT 'nombre de la compañía',
     CONSTRAINT PROVEEDOR_pk PRIMARY KEY (ID)
@@ -79,7 +79,7 @@ CREATE TABLE PROVEEDOR (
 
 -- Table: TRABAJADOR
 CREATE TABLE TRABAJADOR (
-    ID int  NOT NULL COMMENT 'identificador del trabajador ',
+    ID int  NOT NULL auto_increment COMMENT 'identificador del trabajador ',
     NAME varchar(45)  NOT NULL COMMENT 'nombre del trabajador',
     LAST_NAME varchar(45)  NOT NULL COMMENT 'apellido del trabajador',
     CONSTRAINT TRABAJADOR_pk PRIMARY KEY (ID)
@@ -87,7 +87,7 @@ CREATE TABLE TRABAJADOR (
 
 -- Table: VENTA
 CREATE TABLE VENTA (
-    ID int  NOT NULL COMMENT 'identificador de la venta',
+    ID int  NOT NULL auto_increment COMMENT 'identificador de la venta',
     AMOUNT_PRODUC int  NOT NULL,
     TIME timestamp  NOT NULL COMMENT 'fecha de la venta',
     CLIENTE_ID int  NOT NULL,
@@ -135,43 +135,43 @@ ALTER TABLE VENTA ADD CONSTRAINT VENTA_PRODUCTO FOREIGN KEY VENTA_PRODUCTO (PROD
     REFERENCES PRODUCTO (ID) ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- End of file.
-insert into CLIENTE (ID, NAME_CUSTOMER, LAST_NAME)
-values ('1', 'Cristopher', 'sotelo'),
-('2', '	Ronald', 'Espinoza');
+insert into CLIENTE ( NAME_CUSTOMER, LAST_NAME)
+values ('Cristopher', 'sotelo'),
+('	Ronald', 'Espinoza');
 select*from CLIENTE;
-insert into CAJERO (ID, NAME_CASHIER, NUMBER_BOX)
-VALUES('01', 'Paola', '3'),
-      ('02', 'Jorge', '2');
+insert into CAJERO ( NAME_CASHIER, NUMBER_BOX)
+VALUES( 'Paola', '3'),
+      ( 'Jorge', '2');
 select*from CAJERO;
-insert into PRODUCTO (ID, NAME_PRODUC, PRICE, AMOUNT)
-VALUES('001', 'fideo', 5.4, '20'),
-      ('002', 'leche', 4.2, '15');
+insert into PRODUCTO ( NAME_PRODUC, PRICE, AMOUNT)
+VALUES( 'fideo', 5.4, '20'),
+      ('leche', 4.2, '15');
 select*from PRODUCTO;
-insert into TRABAJADOR (ID, NAME, LAST_NAME)
-values ('0001', 'Rosa', 'Linares'),
-('0002', 'Pedro', 'Yactayo');
+insert into TRABAJADOR ( NAME, LAST_NAME)
+values ( 'Rosa', 'Linares'),
+( 'Pedro', 'Yactayo');
 select*from TRABAJADOR;
-insert into PROVEEDOR (ID, RUC_E, NAME_COMPANY)
-values ('00001', '2015678954', 'ARCOR'),
-('00002', '	2046379345', 'Nestle');
+insert into PROVEEDOR ( RUC_E, NAME_COMPANY)
+values ( '2015678954', 'ARCOR'),
+('	2046379345', 'Nestle');
 select*from PROVEEDOR;
-insert into PEDIDO (ID, AMOUNT, TIME, TRABAJADOR_ID, PROVEEDOR_ID, PRODUCTO_ID)
-values ('0001', '22', '2024-11-08 10:00:00', '0001', '00001',0002),
-       ('0002', '13','2024-11-08 11:35:06', '0002', '00002',0001);
+insert into PEDIDO ( AMOUNT, TIME, TRABAJADOR_ID, PROVEEDOR_ID, PRODUCTO_ID)
+values ('22', '2024-11-08 10:00:00', '0001', '00001',0002),
+       ( '13','2024-11-08 11:35:06', '0002', '00002',0001);
 select*from PEDIDO;
-insert into DOCUMENTO_VENTA (ID, AMOUNT, TIME)
-values ('01', '11', '2024-11-07 09:12:36'),
-       ('02', '8','2024-11-07 10:34:29');
+insert into DOCUMENTO_VENTA ( AMOUNT, TIME)
+values ( '11', '2024-11-07 09:12:36'),
+       ( '8','2024-11-07 10:34:29');
 select*from DOCUMENTO_VENTA;
-insert into VENTA (ID, AMOUNT_PRODUC, TIME, CLIENTE_ID, CAJERO_ID, PRODUCTO_ID, DOCUMENTO_VENTA_ID)
-values ('01', '2', '2024-11-07 09:16:06', '2', '01', '002', '02'),
-       ('02', '3','2024-11-07 10:40:19', '1', '02', '001', '01');
+insert into VENTA ( AMOUNT_PRODUC, TIME, CLIENTE_ID, CAJERO_ID, PRODUCTO_ID, DOCUMENTO_VENTA_ID)
+values ( '2', '2024-11-07 09:16:06', '2', '01', '002', '02'),
+       ( '3','2024-11-07 10:40:19', '1', '02', '001', '01');
 select*from VENTA;
-insert into BOLETA (ID, NUMBER_TICKET, DOCUMENTO_VENTA_ID)
-values ('001', '2', '02'),
-       ('002', '3', '01');
+insert into BOLETA ( NUMBER_TICKET, DOCUMENTO_VENTA_ID)
+values ( '2', '02'),
+       ( '3', '01');
 select*from BOLETA;
-insert into FACTURA (ID, SERIE, DOCUMENTO_VENTA_ID)
-values ('01', '2468', '02'),
-       ('02', '3742', '01');
+insert into FACTURA ( SERIE, DOCUMENTO_VENTA_ID)
+values ('2468', '02'),
+       ( '3742', '01');
 select*from FACTURA;
