@@ -1,0 +1,14 @@
+model\Boleta.class
+model\DocumentoVenta.class
+dao\Coneccion.class
+model\Venta.class
+model\Pedido.class
+model\Producto.class
+model\Trabajador.class
+dao\ProductImpl.class
+model\Factura.class
+dao\ICRUD.class
+model\Cajero.class
+model\Cliente.class
+model\Proveedor.class
+controller\ProductC.class
