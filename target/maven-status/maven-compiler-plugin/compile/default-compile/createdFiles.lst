@@ -1,6 +1,7 @@
 model\Boleta.class
 model\DocumentoVenta.class
 dao\Coneccion.class
+dao\ProveedorImpl.class
 model\Venta.class
 model\Pedido.class
 model\Producto.class
@@ -8,6 +9,7 @@ model\Trabajador.class
 dao\ProductImpl.class
 model\Factura.class
 dao\ICRUD.class
+controller\ProveedorC.class
 model\Cajero.class
 model\Cliente.class
 model\Proveedor.class

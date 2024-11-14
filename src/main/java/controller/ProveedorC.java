@@ -8,6 +8,8 @@ import dao.ProveedorImpl;
 import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.List;
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Named;
 import model.Proveedor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +18,8 @@ import org.slf4j.LoggerFactory;
  *
  * @author USUARIO
  */
+@Named(value = "proveedorC")
+@SessionScoped  
 public class ProveedorC implements Serializable {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ProveedorC.class);
@@ -87,7 +91,13 @@ public class ProveedorC implements Serializable {
         this.dao = dao;
     }
 
-    public List<Proveedor> getListPro() {
+    public List<Proveedor> getListPro() throws Exception{
+       try{
+           this.listPro=dao.listarTodos();
+       }catch(SQLException e){
+           LOGGER.error("error al listarC "+e);
+       }
+        
         return listPro;
     }
 
