@@ -22,22 +22,22 @@ import model.Producto;
 @SessionScoped  
 public class ProductC implements Serializable {
     //instancias
-    private static final Logger LOGGER = LoggerFactory.getLogger(ProductC.class); //instancia privada y no va a cambiar
-    private Producto pro; //instanciando modelo
-    private ProductImpl dao; //instanciando la implementación
-    private List<Producto> listPro; //instanciando el modelo en una lista, para hacer una consulta de listas
+    private static final Logger LOGGER = LoggerFactory.getLogger(ProductC.class); 
+    private Producto pro; 
+    private ProductImpl dao; 
+    private List<Producto> listPro; 
 
-    public ProductC() { //se ha generado el constructor
-        pro = new Producto(); //se esta definiendo las instancias universales
-        dao = new ProductImpl(); //se esta definiendo las instancias universales porque se unsara en todo el modelo
+    public ProductC() { 
+        pro = new Producto(); 
+        dao = new ProductImpl(); 
     }
 
-    public void registrar() throws Exception { //es el metodo del controlador registrar
+    public void registrar() throws Exception { 
         try {
-            dao.registrar(pro); //importando el metodo del implemen para que pueda ser consumido
-            LOGGER.info("Registrado completo "); //es como un print
-            limpiar(); //se va a limpiar el registro despues de ser implementado, para que no guarde informacion para el proximo listado
-            listar(); //se va a listar los datos actualizados o registrados
+            dao.registrar(pro); 
+            LOGGER.info("Registrado completo "); 
+            limpiar(); 
+            listar(); 
         } catch (SQLException e) {
             LOGGER.error("el error al registrarC " + e);
         }catch(Exception e){
@@ -63,13 +63,13 @@ public class ProductC implements Serializable {
         }
     }
 
-    public void limpiar() { //se esta jalando la variables 
-        pro = new Producto(); //lo que hace es limpiar los datos que se encuentran en nuestro modelo
+    public void limpiar() { 
+        pro = new Producto(); 
     }
 
-    public void listar() throws Exception { //se encarga de listar los datos de la tabla producto
+    public void listar() throws Exception { 
         try {
-            listPro = dao.listarTodos(); //se esta asignando el resultado de la consulta a la variables listPro
+            listPro = dao.listarTodos(); 
         } catch (SQLException e) {
             LOGGER.error("error al listarC " + e);
         }
@@ -91,9 +91,9 @@ public class ProductC implements Serializable {
         this.dao = dao;
     }
 
-    public List<Producto> getListPro() throws Exception {//es el metodo generado por getter and setter
+    public List<Producto> getListPro() throws Exception {
         try{
-            this.listPro=dao.listarTodos(); //esta ejecusión sirve para actualizar los datos en la ejecusión 
+            this.listPro=dao.listarTodos(); 
         }catch(SQLException e){
             LOGGER.error("Error al listarC "+e);
         }
