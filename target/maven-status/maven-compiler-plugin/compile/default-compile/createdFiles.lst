@@ -8,8 +8,10 @@ model\Producto.class
 model\Trabajador.class
 dao\ProductImpl.class
 model\Factura.class
+controller\TrabajadorC.class
 dao\ICRUD.class
 controller\ProveedorC.class
+dao\TrabajadorImpl.class
 model\Cajero.class
 model\Cliente.class
 model\Proveedor.class
