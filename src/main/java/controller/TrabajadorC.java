@@ -101,5 +101,4 @@ public class TrabajadorC implements Serializable{
     public void setListPro(List<Trabajador> listPro) {
         this.listPro = listPro;
     }
-    
 }
