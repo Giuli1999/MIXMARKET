@@ -18,7 +18,19 @@ public class Venta {
     private int cajeroId;
     private int productoId;
     private int documentoVentaId;
-
+    //cliente
+    private int clienteId_fk;
+    private String nombreCliente;
+    //cajero
+    private int cajeroId_fk;
+    private String nombreCajero;
+    //producto
+    private int productoId_fk;
+    private String nombreProducto;
+    //documento_venta
+    private int documentoVentaId_fk;
+   
+    
     public int getId() {
         return id;
     }
@@ -73,6 +85,62 @@ public class Venta {
 
     public void setDocumentoVentaId(int documentoVentaId) {
         this.documentoVentaId = documentoVentaId;
+    }
+
+    public int getClienteId_fk() {
+        return clienteId_fk;
+    }
+
+    public void setClienteId_fk(int clienteId_fk) {
+        this.clienteId_fk = clienteId_fk;
+    }
+
+    public String getNombreCliente() {
+        return nombreCliente;
+    }
+
+    public void setNombreCliente(String nombreCliente) {
+        this.nombreCliente = nombreCliente;
+    }
+
+    public int getCajeroId_fk() {
+        return cajeroId_fk;
+    }
+
+    public void setCajeroId_fk(int cajeroId_fk) {
+        this.cajeroId_fk = cajeroId_fk;
+    }
+
+    public String getNombreCajero() {
+        return nombreCajero;
+    }
+
+    public void setNombreCajero(String nombreCajero) {
+        this.nombreCajero = nombreCajero;
+    }
+
+    public int getProductoId_fk() {
+        return productoId_fk;
+    }
+
+    public void setProductoId_fk(int productoId_fk) {
+        this.productoId_fk = productoId_fk;
+    }
+
+    public String getNombreProducto() {
+        return nombreProducto;
+    }
+
+    public void setNombreProducto(String nombreProducto) {
+        this.nombreProducto = nombreProducto;
+    }
+
+    public int getDocumentoVentaId_fk() {
+        return documentoVentaId_fk;
+    }
+
+    public void setDocumentoVentaId_fk(int documentoVentaId_fk) {
+        this.documentoVentaId_fk = documentoVentaId_fk;
     }
     
     

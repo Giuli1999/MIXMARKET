@@ -9,9 +9,16 @@ package model;
  * @author USUARIO
  */
 public class Boleta {
+
     private int id;
     private int numberoTicket;
     private int documentoVentaId;
+
+    @Override
+    public String toString() {
+        // Puedes personalizar esta implementación según los datos que quieras mostrar
+        return "numberoTicket: " + numberoTicket + ", documentoVentaId: " + documentoVentaId;
+    }
 
     public int getId() {
         return id;
@@ -36,6 +43,5 @@ public class Boleta {
     public void setDocumentoVentaId(int documentoVentaId) {
         this.documentoVentaId = documentoVentaId;
     }
-    
-    
+
 }
