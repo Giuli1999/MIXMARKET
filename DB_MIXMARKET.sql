@@ -37,6 +37,7 @@ CREATE TABLE DOCUMENTO_VENTA (
     ID int  NOT NULL auto_increment COMMENT 'identificador del documento de venta',
     AMOUNT double(10,2)  NOT NULL COMMENT 'monto del documento de venta',
     TIME timestamp  NOT NULL COMMENT 'fecha de emisión',
+    TYPE char(1) not null,
     CONSTRAINT DOCUMENTO_VENTA_pk PRIMARY KEY (ID)
 ) COMMENT 'datos principales del documento';
 
@@ -147,6 +148,7 @@ insert into PRODUCTO ( NAME_PRODUC, PRICE, AMOUNT)
 VALUES( 'fideo', 5.4, '20'),
       ('leche', 4.2, '15');
 select*from PRODUCTO;
+update PRODUCTO set NAME_PRODUC='PAN', PRICE=8.0, AMOUNT= '21' WHERE ID=1 ;
 insert into TRABAJADOR ( NAME, LAST_NAME)
 values ( 'Rosa', 'Linares'),
 ( 'Pedro', 'Yactayo');
@@ -159,19 +161,74 @@ insert into PEDIDO ( AMOUNT, TIME, TRABAJADOR_ID, PROVEEDOR_ID, PRODUCTO_ID)
 values ('22', '2024-11-08 10:00:00', '0001', '00001',0002),
        ( '13','2024-11-08 11:35:06', '0002', '00002',0001);
 select*from PEDIDO;
-insert into DOCUMENTO_VENTA ( AMOUNT, TIME)
-values ( '11', '2024-11-07 09:12:36'),
-       ( '8','2024-11-07 10:34:29');
+
+
+insert into DOCUMENTO_VENTA ( AMOUNT, TIME, TYPE)
+values ( '11', '2024-11-07 09:12:36', 'B'),
+       ( '8','2024-11-07 10:34:29','F'),
+       ( '20', '2024-11-07 11:12:36', 'B'),
+       ( '18','2024-11-07 12:34:29','F');
 select*from DOCUMENTO_VENTA;
 insert into VENTA ( AMOUNT_PRODUC, TIME, CLIENTE_ID, CAJERO_ID, PRODUCTO_ID, DOCUMENTO_VENTA_ID)
 values ( '2', '2024-11-07 09:16:06', '2', '01', '002', '02'),
        ( '3','2024-11-07 10:40:19', '1', '02', '001', '01');
 select*from VENTA;
 insert into BOLETA ( NUMBER_TICKET, DOCUMENTO_VENTA_ID)
-values ( '2', '02'),
-       ( '3', '01');
+values ( '645', '2'),
+       ( '3', '1');
+select*from BOLETA;
+insert into BOLETA ( NUMBER_TICKET, DOCUMENTO_VENTA_ID)
+values        ( '5', '11');
 select*from BOLETA;
 insert into FACTURA ( SERIE, DOCUMENTO_VENTA_ID)
-values ('2468', '02'),
-       ( '3742', '01');
+values ('2468', '2'),
+       ( '3742', '1');
 select*from FACTURA;
+
+CREATE OR REPLACE VIEW VENTA_BOLETA AS 
+SELECT 
+    Documento_Venta.ID AS ID_Documento_Venta, 
+    Documento_Venta.Amount, 
+    Documento_Venta.Time,  
+    CASE 
+        WHEN Documento_Venta.TYPE = 'B' THEN 'BOLETA' 
+        WHEN Documento_Venta.TYPE = 'F' THEN 'FACTURA' 
+        ELSE 'OTRO'
+    END AS Tipo_Documento,
+    COALESCE(Boleta.ID, Factura.ID) AS ID_Documento_Adicional,
+    COALESCE(Boleta.Number_ticket, Factura.serie) AS Numero_Documento_Adicional
+FROM Documento_Venta 
+LEFT JOIN Boleta ON Documento_Venta.ID = Boleta.Documento_Venta_ID 
+LEFT JOIN Factura ON Documento_Venta.ID = Factura.DOCUMENTO_VENTA_ID;
+
+CREATE OR REPLACE VIEW PEDIDO_FULL AS
+SELECT Pedido.ID, Pedido.AMOUNT, Pedido.TIME, Trabajador.ID AS TRABAJADOR_ID,
+concat(Trabajador.NAME, ' ',Trabajador.LAST_NAME) as NOMBRE_TRABAJADOR, 
+Proveedor.ID AS PROVEEDOR_ID, Proveedor.NAME_COMPANY,
+Producto.ID AS PRODUCTO_ID, Producto.NAME_PRODUC
+FROM Pedido
+INNER JOIN Trabajador on Pedido.Trabajador_ID = Trabajador.ID
+INNER JOIN Proveedor on Pedido.Proveedor_ID = Proveedor.ID
+INNER JOIN Producto on Pedido.Producto_ID = Producto.ID;
+SELECT*FROM PEDIDO_FULL;
+select ID_Documento_Venta, Amount, Time, Tipo_Documento, ID_Documento_Adicional, Numero_Documento_Adicional from VENTA_BOLETA;
+
+SELECT ID, CONCAT(NAME, ' ', LAST_NAME) AS NOMBRE
+FROM TRABAJADOR;
+SELECT ID, NAME_COMPANY FROM PROVEEDOR;
+select ID, NAME_PRODUC FROM PRODUCTO;
+CREATE OR REPLACE VIEW VENTA_FULL AS
+SELECT Venta.ID, Venta.AMOUNT_PRODUC, Venta.TIME,
+ cliente.ID AS CLIENTE_ID, 
+concat(Cliente.NAME_CUSTOMER, ' ',Cliente.LAST_NAME) as NOMBRE_CLIENTE, 
+Cajero.ID as CAJERO_ID, Cajero.NAME_CASHIER as NOMBRE_CAJERO, 
+Producto.ID as PRODUCTO_ID, Producto.NAME_PRODUC, 
+DOCUMENTO_VENTA.ID AS DOCUMENTO_VENTA_ID
+FROM Venta
+INNER JOIN Cliente on Venta.Cliente_ID = Cliente.ID
+INNER JOIN Cajero on Venta.Cajero_ID = Cajero.ID
+INNER JOIN Producto on Venta.Producto_ID = Producto.ID
+INNER JOIN Documento_Venta on Venta.Documento_Venta_ID = Documento_Venta.ID;
+SELECT*FROM VENTA_FULL;
+
+
