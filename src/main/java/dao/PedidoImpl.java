@@ -20,7 +20,7 @@ public class PedidoImpl extends Coneccion implements ICRUD<Pedido> {
     public void registrar(Pedido obj) throws Exception {
         Timestamp fechaActual = new Timestamp(System.currentTimeMillis());
         String sql = "INSERT INTO PEDIDO (AMOUNT, TIME, TRABAJADOR_ID, PROVEEDOR_ID, PRODUCTO_ID) VALUES(?,?,?,?,?)";
-        try (PreparedStatement ps = this.getCn().prepareStatement(sql)) {
+        try (PreparedStatement ps = this.conectar().prepareStatement(sql)) {
             ps.setInt(1, obj.getCantidad());
             ps.setTimestamp(2, fechaActual);
             ps.setInt(3, obj.getTrabajadorId_fk());

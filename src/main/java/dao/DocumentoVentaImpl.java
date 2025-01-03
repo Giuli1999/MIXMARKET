@@ -55,7 +55,7 @@ public class DocumentoVentaImpl extends Coneccion implements ICRUD<DocumentoVent
 
     public void boleta(DocumentoVenta obj) {
         String sql = "insert into BOLETA (NUMBER_TICKET, DOCUMENTO_VENTA_ID) VALUES (?,?)";
-        try ( PreparedStatement ps = this.getCn().prepareStatement(sql)) {
+        try ( PreparedStatement ps = this.conectar().prepareStatement(sql)) {
             ps.setInt(1, obj.getNumeroTicketBolFac());
             ps.setInt(2, obj.getDocumentoVentaIdBolFac());
             ps.execute();
@@ -68,7 +68,7 @@ public class DocumentoVentaImpl extends Coneccion implements ICRUD<DocumentoVent
 
     public void factura(DocumentoVenta obj) {
         String sql = "insert into FACTURA (SERIE, DOCUMENTO_VENTA_ID) VALUES (?,?)";
-        try ( PreparedStatement ps = this.getCn().prepareStatement(sql)) {
+        try ( PreparedStatement ps = this.conectar().prepareStatement(sql)) {
             ps.setInt(1, obj.getNumeroTicketBolFac());
             ps.setInt(2, obj.getDocumentoVentaIdBolFac());
             ps.execute();

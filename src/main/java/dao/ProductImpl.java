@@ -21,7 +21,7 @@ public class ProductImpl extends Coneccion implements ICRUD<Producto> {
     @Override
     public void registrar(Producto obj) throws Exception {
         String sql = "insert into PRODUCTO ( NAME_PRODUC, PRICE, AMOUNT) VALUES(?,?,?)";
-        try ( PreparedStatement ps = this.getCn().prepareStatement(sql)) {
+        try ( PreparedStatement ps = this.conectar().prepareStatement(sql)) {
              ps.setString(1, obj.getName());
              ps.setDouble(2, obj.getPrice());
              ps.setInt(3, obj.getCantidad());

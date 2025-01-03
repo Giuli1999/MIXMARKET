@@ -20,7 +20,7 @@ public class ClienteImpl extends Coneccion implements ICRUD<Cliente> {
 @Override
     public void registrar(Cliente obj) throws Exception {
         String sql = "insert into CLIENTE (NAME_CUSTOMER, LAST_NAME) VALUES(?,?)";
-        try ( PreparedStatement ps = this.getCn().prepareStatement(sql)) {
+        try ( PreparedStatement ps = this.conectar().prepareStatement(sql)) {
             ps.setString(1, obj.getNameCustomer());
             ps.setString(2, obj.getLastName());
             ps.execute();

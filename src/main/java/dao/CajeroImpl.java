@@ -21,7 +21,7 @@ public class CajeroImpl extends Coneccion implements ICRUD<Cajero> {
     @Override
     public void registrar(Cajero obj) throws Exception {
         String sql = "insert into Cajero (NAME_CASHIER, NUMBER_BOX) VALUES(?,?)";
-        try ( PreparedStatement ps = this.getCn().prepareStatement(sql)) {
+        try ( PreparedStatement ps = this.conectar().prepareStatement(sql)) {
             ps.setString(1, obj.getName());
             ps.setInt(2, obj.getNumberBox());
             ps.execute();

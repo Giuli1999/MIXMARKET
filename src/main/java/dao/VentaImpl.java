@@ -22,17 +22,18 @@ public class VentaImpl extends Coneccion implements ICRUD<Venta>{
     @Override
     public void registrar(Venta obj) throws Exception {
         Timestamp fechaActual = new Timestamp(System.currentTimeMillis());
+        obj.setFecha(fechaActual);
         String sql = "INSERT INTO VENTA (AMOUNT_PRODUC, TIME, CLIENTE_ID, CAJERO_ID, PRODUCTO_ID, DOCUMENTO_VENTA_ID) VALUES(?,?,?,?,?,?)";
-        try (PreparedStatement ps = this.getCn().prepareStatement(sql)) {
+        try (PreparedStatement ps = this.conectar().prepareStatement(sql)) {
             ps.setInt(1, obj.getCantidadProducto());
-            ps.setTimestamp(2, fechaActual);
+            ps.setTimestamp(2, obj.getFecha());
             ps.setInt(3, obj.getClienteId_fk());
             ps.setInt(4, obj.getCajeroId_fk());
             ps.setInt(5, obj.getProductoId_fk());
             ps.setInt(6, obj.getDocumentoVentaId_fk());
             ps.execute();
             ps.close();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             Logger.getGlobal().log(Level.WARNING, "Error al ingresar VENTA Dao {0}", e.getMessage());
             e.printStackTrace();
         }

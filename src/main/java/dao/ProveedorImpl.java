@@ -21,7 +21,7 @@ public class ProveedorImpl extends Coneccion implements ICRUD<Proveedor> {
     @Override
     public void registrar(Proveedor obj) throws Exception {
         String sql = "insert into PROVEEDOR ( RUC_E, NAME_COMPANY) VALUES(?,?)";
-        try ( PreparedStatement ps = this.getCn().prepareStatement(sql)) {
+        try ( PreparedStatement ps = this.conectar().prepareStatement(sql)) {
             ps.setInt(1, obj.getRuc());
             ps.setString(2, obj.getNameCompany());
             ps.execute();

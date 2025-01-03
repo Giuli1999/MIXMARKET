@@ -21,7 +21,7 @@ public class TrabajadorImpl extends Coneccion implements ICRUD<Trabajador> {
     @Override
     public void registrar(Trabajador obj) throws Exception {
         String sql = "insert into TRABAJADOR (NAME, LAST_NAME) VALUES(?,?)";
-        try ( PreparedStatement ps = this.getCn().prepareStatement(sql)) {
+        try ( PreparedStatement ps = this.conectar().prepareStatement(sql)) {
             ps.setString(1, obj.getName());
             ps.setString(2, obj.getLastName());
             ps.execute();
