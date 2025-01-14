@@ -66,7 +66,7 @@ public class TestProveedorImpl {
         ProveedorImpl instance = new ProveedorImpl();
         proveedor.setId(2);
         proveedor.setRuc(11223344);
-        proveedor.setNameCompany("Coca-Cola");
+        proveedor.setNameCompany("Coca_Cola");
 
         instance.modificar(proveedor);
 

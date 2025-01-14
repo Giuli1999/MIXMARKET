@@ -39,8 +39,8 @@ public class TestPedidoImpl {
         pedido.setId(1);
         pedido.setCantidad(50);
         pedido.setTrabajadorId_fk(2);
-        pedido.setProveedorId_fk(3);
-        pedido.setProductoId_fk(4);
+        pedido.setProveedorId_fk(2);
+        pedido.setProductoId_fk(1);
     }
 
     @After

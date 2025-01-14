@@ -18,10 +18,10 @@ public class Coneccion {
 
     public static Connection conectar() {
         try {
-            String user = "root";
-            String pwd = "root";
+            String user = "admin";
+            String pwd = "";
             String driver = "com.mysql.cj.jdbc.Driver";
-            String url = "jdbc:mysql://localhost:3306/MIXMARKET?useSSL=false";
+            String url = "jdbc:h2:./base/base";
             Class.forName(driver).newInstance();
             cnx = DriverManager.getConnection(url, user, pwd);
         } catch (Exception e) {

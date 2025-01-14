@@ -38,10 +38,10 @@ public class TestVentaImpl {
         venta.setId(1);
         venta.setCantidadProducto(10);
         venta.setFecha(fechaActual);
-        venta.setClienteId_fk(2);
-        venta.setCajeroId_fk(3);
-        venta.setProductoId_fk(4);
-        venta.setDocumentoVentaId_fk(5);
+        venta.setClienteId_fk(1);
+        venta.setCajeroId_fk(1);
+        venta.setProductoId_fk(1);
+        venta.setDocumentoVentaId_fk(1);
     }
 
     @After
