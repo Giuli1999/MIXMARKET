@@ -1,0 +1,122 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+    <body>
+
+        <ui:composition template="./menu.xhtml">
+
+            <ui:define name="top">
+                <div id="top" class="top">
+                    <ui:insert name="top">
+                        <p:tabMenu activeIndex="#{param.i}">
+                            <p:menuitem value="Trabajador" outcome="trabajador1.xhtml" icon="pi pi-fw pi-home">
+                                <f:param name="i" value="0"/>
+                            </p:menuitem>
+                            <p:menuitem value="Productos" outcome="producto1.xhtml" icon="pi pi-fw pi-box">
+                                <f:param name="i" value="1"/>
+                            </p:menuitem>
+                            <p:menuitem value="Proveedor" outcome="proveedor1.xhtml" icon="pi pi-fw pi-pencil">
+                                <f:param name="i" value="2"/>
+                            </p:menuitem>
+                            <p:menuitem value="Pedido" outcome="pedido1.xhtml" icon="pi pi-fw pi-file">
+                                <f:param name="i" value="3"/>
+                            </p:menuitem>
+                            <p:menuitem value="Documento_Venta" outcome="documentoventa1.xhtml" icon="pi pi-fw pi-cog">
+                                <f:param name="i" value="4"/>
+                            </p:menuitem>
+                            <p:menuitem value="Cliente" outcome="cliente1.xhtml" icon="pi pi-fw pi-cog">
+                                <f:param name="i" value="5"/>
+                            </p:menuitem> 
+                            <p:menuitem value="Cajero" outcome="cajero1.xhtml" icon="pi pi-fw pi-cog">
+                                <f:param name="i" value="6"/>
+                            </p:menuitem>
+                            <p:menuitem value="Venta" outcome="venta1.xhtml" icon="pi pi-fw pi-cog">
+                                <f:param name="i" value="7"/>
+                            </p:menuitem>
+                        </p:tabMenu>
+                    </ui:insert>
+                </div>
+            </ui:define>
+
+            <ui:define name="content">
+                <h:body>
+                    <h:form id="formCajero" style="align-content: center;align-items: center;text-align: center">
+                        <h1>REGISTRO DE CAJEROS</h1>
+                        <p:panelGrid columns="2">
+                            <p:outputLabel>NAME_CASHIER</p:outputLabel>
+                            <p:inputText value="#{cajeroC.pro.name}">
+                                <p:keyFilter regEx="/[A-Z_a-z_ _ñ_á_é_i_ó_ú]/"/>
+                            </p:inputText>
+                            <p:outputLabel>NUMBER_BOX</p:outputLabel>
+                            <p:inputNumber value="#{cajeroC.pro.numberBox}">
+                                <p:keyFilter regEx="/[0-9]/"/>
+                            </p:inputNumber>
+                            <p:commandButton value="REGISTRAR" actionListener="#{cajeroC.registrar()}"
+                                             update="formCajero :formTblCajero:tblCajero"/>
+                        </p:panelGrid>
+                    </h:form>
+                    <h:form id="formTblCajero" style="text-align:center">
+                        <p:dataTable id="tblCajero"
+                                     var="caj"
+                                     value="#{cajeroC.listPro}"   
+                                     selection="#{cajeroC.pro}"
+                                     selectionMode="single"
+                                     rowKey="#{caj.id}"
+                                     paginator="true"
+                                     paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     rowsPerPageTemplate="5,10,15">
+                            <p:column headerText="ID" sortBy="#{caj.id}" filterBy="#{caj.id}">
+                                <h:outputText value="#{caj.id}"/>
+                            </p:column>
+                            <p:column headerText="NAME_CASHIER" sortBy="#{caj.name}" filterBy="#{caj.name}">
+                                <h:outputText value="#{caj.name}" />
+                            </p:column>
+                            <p:column headerText="NUMBER_BOX" sortBy="#{caj.numberBox}" filterBy="#{caj.numberBox}">
+                                <h:outputText value="#{caj.numberBox}" />
+                            </p:column>
+                            <f:facet name="footer">
+                                EN TOTAL HAY #{fn:length(trabajadorC.listPro)} REGISTROS.
+                            </f:facet>
+                        </p:dataTable>
+                        <p:contextMenu for="tblCajero">
+                            <p:menuitem value="MODIFICAR" oncomplete="PF('dloModCajero').show()" update=":formDialogCajero"/>
+                            <p:menuitem value="ELIMINAR" actionListener="#{cajeroC.eliminar()}" update="tblCajero"> 
+                                <p:confirm header="CONFIRMACIÓN" message="¿Está seguro de eliminar este registro?"/>
+                            </p:menuitem>
+                        </p:contextMenu>
+                    </h:form>
+                    <p:dialog header="ACTUALIZAR DATOS" widgetVar="dloModCajero" resizable="false" modal="true" >
+                        <h:form id="formDialogCajero">
+                            <p:panelGrid columns="2">
+                                <p:outputLabel>NAME_CASHIER</p:outputLabel>
+                                <p:inputText value="#{cajeroC.pro.name}">
+                                    <p:keyFilter regEx="/[A-Z_a-z_ _ñ_á_é_i_ó_ú]/"/>
+                                </p:inputText>
+                                <p:outputLabel>NUMBER_BOX</p:outputLabel>
+                                <p:inputText value="#{cajeroC.pro.numberBox}">
+                                    <p:keyFilter regEx="/[0-9]/"/>
+                                </p:inputText>
+                                <p:commandButton value="MODIFICAR" actionListener="#{cajeroC.modificar()}" update="@([id$=formTblCajero]) formDialogCajero" oncomplete="PF('dloModCajero').hide()"/>
+                                <p:commandButton value="CANCELAR" oncomplete="PF('dloModCajero').hide()"/>
+                            </p:panelGrid>
+                        </h:form>
+                    </p:dialog>
+                    <h:form>
+                        <p:confirmDialog global="true">
+                            <p:commandButton value="SI" type="button" styleClass="ui-confirmdialog-yes"/>
+                            <p:commandButton value="NO" type="button" styleClass="ui-confirmdialog-no"/>
+                        </p:confirmDialog>
+                    </h:form>
+                </h:body>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
