@@ -7,6 +7,17 @@ CREATE DATABASE MIXMARKET;
 USE MIXMARKET;
 
 -- tables
+create table USUARIOS (
+	ID int not null auto_increment,
+	DNI int not null,
+	NAMES varchar(15) not null,
+	LASTNAME_PATERNAL varchar(15) not null,
+	LASTNAME_MATERNAL varchar(15) not null,
+	CODE_VERIFICATION int not null,
+	CODIGO_VERIFICATION_LETTER varchar(15) not null,
+	CONSTRAINT USUARIOS_pk primary key(ID)
+);
+
 -- Table: BOLETA
 CREATE TABLE BOLETA (
     ID int  NOT NULL auto_increment COMMENT 'identificador de la boleta',
@@ -184,6 +195,7 @@ insert into FACTURA ( SERIE, DOCUMENTO_VENTA_ID)
 values ('2468', '2'),
        ( '3742', '1');
 select*from FACTURA;
+select*from VENTA;
 
 CREATE OR REPLACE VIEW VENTA_BOLETA AS 
 SELECT 
